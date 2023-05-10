@@ -4,6 +4,7 @@ from bfs import bfs
 from astar import astar
 
 app = Flask(__name__)
+app.template_folder = "templates"
 
 @app.route("/", methods=["GET"])
 def index():
@@ -19,7 +20,7 @@ def solve():
     maze = Maze(rows, cols, start, end, walls)
     bfs_solution = bfs(maze)
     astar_solution = astar(maze)
-    return render_template("solve.html", rows=rows, cols=cols, start=start, end=end, walls=walls, bfs_solution=bfs_solution, astar_solution=astar_solution)
+    return render_template("solve.html", bfs_solution=bfs_solution, astar_solution=astar_solution, rows=rows, cols=cols, start=start, end=end, walls=list(walls))
 
 if __name__ == "__main__":
     app.run(debug=True)

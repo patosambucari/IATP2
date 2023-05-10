@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Solución del laberinto</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" integrity="sha384-XC89jaiF5g5C5BYwEu5G5HhJj1X9vly8rrKz+H6/YYU6bbgNlE8lNwNqt2+SKJcN" crossorigin="anonymous">
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+
+  </head>
+  <body>
+    <h1>Solución del laberinto</h1>
+    <h2>BFS</h2>
+    {% if bfs_solution %}
+      <ul>
+        {% for node in bfs_solution %}
+          <li>{{ node }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No se encontró solución con BFS.</p>
+    {% endif %}
+    <h2>A*</h2>
+    {% if astar_solution %}
+      <ul>
+        {% for node in astar_solution %}
+          <li>{{ node }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No se encontró solución con A*.</p>
+    {% endif %}
+    <hr>
+    <h2>Laberinto</h2>
+    <canvas id="maze" width="{{ cols*50 }}" height="{{ rows*50 }}"></canvas>
+    <script>
+        var rows = "{{ rows }}";
+        var cols = "{{ cols }}";
+        var start = "{{ start }}";
+        var end = "{{ end }}";
+        var walls = "{{ walls|tojson }}";
+        var bfs_solution = "{{ bfs_solution|tojson }}";
+        var astar_solution = "{{ astar_solution|tojson }}";
+        var canvas = document.getElementById("maze");
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "black";
+        for (var r = 0; r < rows; r++) {
+          for (var c = 0; c < cols; c++) {
+            if ([r, c].toString() == start) {
+              ctx.fillStyle = "green";
+            } else if ([r, c].toString() == end) {
+              ctx.fillStyle = "red";
+            } else if (walls.includes([r, c])) {
+              ctx.fillStyle = "black";
+            } else {
+              ctx.fillStyle = "white";
+            }
+            ctx.fillRect(c*50, r*50, 50, 50);
+            ctx.strokeStyle = "gray";
+            ctx.strokeRect(c*50, r*50, 50, 50);
+          }
+        }
+        ctx.fillStyle = "blue";
+        if (bfs_solution) {
+          for (var i = 0; i < bfs_solution.length; i++) {
+            var node = bfs_solution[i];
+            ctx.fillRect(node[1]*50+10, node[0]*50+10, 30, 30);
+          }
+        }
+        ctx.fillStyle = "purple";
+        if (astar_solution) {
+          for (var i = 0; i < astar_solution.length; i++) {
+            var node = astar_solution[i];
+            ctx.fillRect(node[1]*50+15, node[0]*50+15, 20, 20);
+          }
+        }
+      </script>
+      
+      
+  </body>
+</html>
+
