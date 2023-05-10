@@ -9,24 +9,48 @@
     <h1>Laberinto</h1>
     <form method="POST" action="/solve">
       <label for="rows">Filas:</label>
-      <input type="number" name="rows" id="rows" value="10" min="1"><br>
+      <select id="rows">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10" selected>10</option>
+      </select><br>
       <label for="cols">Columnas:</label>
-      <input type="number" name="cols" id="cols" value="10" min="1"><br>
+      <select id="cols">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10" selected>10</option>
+      </select><br>
       <label for="start">Inicio:</label>
       <input type="text" name="start" id="start" value="0,0"><br>
       <label for="end">Fin:</label>
       <input type="text" name="end" id="end" value="9,9"><br>
-      <label for="walls">Paredes:</label><br>
+      <br/>
+      <button id="update-maze">Actualizar</button><br>
+      <br/>
       <canvas id="maze" width="500" height="500"></canvas><br>
-      <button type="submit">Resolver</button>
+      <!-- <button type="submit">Resolver</button> -->
+      <!-- <canvas id="maze-canvas" width="500" height="500"></canvas> -->
+      <label for="walls">Paredes:</label><br>
+      <button id="add-wall" type="button">Agregar pared</button>
+      <button id="clear-walls" type="button">Borrar paredes</button>
+      <button id="solve-bfs" type="submit">Resolver con BFS</button>
+      <button id="solve-astar" type="submit">Resolver con A*</button>
+
     </form>
-
-    <!-- <canvas id="maze-canvas" width="500" height="500"></canvas> -->
-    <button id="add-wall" type="button">Agregar pared</button>
-    <button id="clear-walls" type="button">Borrar paredes</button>
-    <button id="solve-bfs" type="button">Resolver con BFS</button>
-    <button id="solve-astar" type="button">Resolver con A*</button>
-
     <script src="{{ url_for('static', filename='maze.js') }}"></script>
   </body>
 </html>
