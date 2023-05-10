@@ -1,3 +1,6 @@
+document.getElementById("solve-bfs").addEventListener("click", solveBFS);
+document.getElementById("solve-astar").addEventListener("click", solveAStar);
+
 var canvas = document.getElementById("maze");
 var ctx = canvas.getContext("2d");
 
@@ -8,6 +11,53 @@ var end = document.getElementById("end").value;
 var walls = new Set();
 
 var dragging = false;
+
+function solveBFS() {
+  // Obtener los valores de las entradas del usuario
+  const rows = parseInt(document.getElementById("rows").value);
+  const cols = parseInt(document.getElementById("cols").value);
+  const start = document.getElementById("start").value;
+  const end = document.getElementById("end").value;
+  const walls = getWalls();
+  // Enviar una solicitud POST al servidor para resolver el laberinto con BFS
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/solve", true);
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhr.onload = function () {
+    // Analizar la respuesta JSON del servidor
+    const solution = JSON.parse(xhr.responseText);
+    // Dibujar el laberinto y la solución con BFS
+    drawMaze(rows, cols, start, end, walls, solution.bfs_solution, solution.astar_solution);
+  };
+  xhr.onerror = function () {
+    console.error("Error al resolver el laberinto con BFS");
+  };
+  xhr.send(JSON.stringify({ rows: rows, cols: cols, start: start, end: end, walls: walls, algorithm: "bfs" }));
+}
+
+function solveAStar() {
+  // Obtener los valores de las entradas del usuario
+  const rows = parseInt(document.getElementById("rows").value);
+  const cols = parseInt(document.getElementById("cols").value);
+  const start = document.getElementById("start").value;
+  const end = document.getElementById("end").value;
+  const walls = getWalls();
+  // Enviar una solicitud POST al servidor para resolver el laberinto con A*
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/solve", true);
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhr.onload = function () {
+    // Analizar la respuesta JSON del servidor
+    const solution = JSON.parse(xhr.responseText);
+    // Dibujar el laberinto y la solución con A*
+    drawMaze(rows, cols, start, end, walls, solution.bfs_solution, solution.astar_solution);
+  };
+  xhr.onerror = function () {
+    console.error("Error al resolver el laberinto con A*");
+  };
+  xhr.send(JSON.stringify({ rows: rows, cols: cols, start: start, end: end, walls: walls, algorithm: "astar" }));
+}
+
 
 function draw() {
   ctx.fillStyle = "white";

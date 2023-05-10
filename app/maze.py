@@ -20,3 +20,5 @@ class Maze:
 
     def heuristic(self, node):
         return abs(node[0] - self.end[0]) + abs(node[1] - self.end[1])
+
+    

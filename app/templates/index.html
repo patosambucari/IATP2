@@ -5,10 +5,8 @@
     <title>Laberinto</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   </head>
-  
   <body>
     <h1>Laberinto</h1>
-
     <form method="POST" action="/solve">
       <label for="rows">Filas:</label>
       <input type="number" name="rows" id="rows" value="10" min="1"><br>
@@ -22,31 +20,13 @@
       <canvas id="maze" width="500" height="500"></canvas><br>
       <button type="submit">Resolver</button>
     </form>
-   
-    <table>
-    <tr>
-        <th>Filas:</th>
-        <td><input id="rows" type="number" min="2" max="100" value="10"></td>
-    </tr>
-    <tr>
-        <th>Columnas:</th>
-        <td><input id="cols" type="number" min="2" max="100" value="10"></td>
-    </tr>
-    <tr>
-        <th>Inicio:</th>
-        <td><input id="start" type="text" value="0,0"></td>
-    </tr>
-    <tr>
-        <th>Fin:</th>
-        <td><input id="end" type="text" value="9,9"></td>
-    </tr>
-    </table>
 
-    <canvas id="maze" width="500" height="500"></canvas>
-
+    <canvas id="maze-canvas" width="500" height="500"></canvas>
+    <button id="add-wall" type="button">Agregar pared</button>
+    <button id="clear-walls" type="button">Borrar paredes</button>
     <button id="solve-bfs" type="button">Resolver con BFS</button>
     <button id="solve-astar" type="button">Resolver con A*</button>
 
     <script src="{{ url_for('static', filename='maze.js') }}"></script>
-    </body>
+  </body>
 </html>
