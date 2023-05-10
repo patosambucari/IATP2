@@ -1,5 +1,19 @@
+// Manejadores de eventos para botones
+document.getElementById("add-wall").addEventListener("click", function() {
+  const row = Math.floor(Math.random() * rows);
+  const col = Math.floor(Math.random() * cols);
+  walls.add([row, col].toString());
+  draw();
+});
+
+document.getElementById("clear-walls").addEventListener("click", function() {
+  walls.clear();
+  draw();
+});
+
 document.getElementById("solve-bfs").addEventListener("click", solveBFS);
 document.getElementById("solve-astar").addEventListener("click", solveAStar);
+
 
 var canvas = document.getElementById("maze");
 var ctx = canvas.getContext("2d");
