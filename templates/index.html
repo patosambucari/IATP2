@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Laberinto</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+  </head>
+  
+  <body>
+    <h1>Laberinto</h1>
+    <form method="POST" action="/solve">
+      <label for="rows">Filas:</label>
+      <input type="number" name="rows" id="rows" value="10" min="1"><br>
+      <label for="cols">Columnas:</label>
+      <input type="number" name="cols" id="cols" value="10" min="1"><br>
+      <label for="start">Inicio:</label>
+      <input type="text" name="start" id="start" value="0,0"><br>
+      <label for="end">Fin:</label>
+      <input type="text" name="end" id="end" value="9,9"><br>
+      <label for="walls">Paredes:</label><br>
+      <canvas id="maze" width="500" height="500"></canvas><br>
+      <button type="submit">Resolver</button>
+    </form>
+    <script src="{{ url_for('static', filename='maze.js') }}"></script>
+  
+    <h1>Laberinto</h1>
+
+    <table>
+    <tr>
+        <th>Filas:</th>
+        <td><input id="rows" type="number" min="2" max="100" value="10"></td>
+    </tr>
+    <tr>
+        <th>Columnas:</th>
+        <td><input id="cols" type="number" min="2" max="100" value="10"></td>
+    </tr>
+    <tr>
+        <th>Inicio:</th>
+        <td><input id="start" type="text" value="0,0"></td>
+    </tr>
+    <tr>
+        <th>Fin:</th>
+        <td><input id="end" type="text" value="9,9"></td>
+    </tr>
+    </table>
+
+    <canvas id="maze" width="500" height="500"></canvas>
+
+    <button id="solve-bfs" type="button">Resolver con BFS</button>
+    <button id="solve-astar" type="button">Resolver con A*</button>
+
+    <script src="{{ url_for('static', filename='maze.js') }}"></script>
+
+    </body>
+</html>
